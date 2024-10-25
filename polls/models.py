@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Question(models.Model):
@@ -22,3 +23,11 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class UserProfile(models.Model): #Определение UserProfile модели
+    user = models.OneToOneField(User, on_delete=models.CASCADE)   #Поле пользователя
+    avatar = models.ImageField(upload_to='avatars/')  #Поле Аватара
+    bio = models.TextField(blank=True)  #Поле позволяет хранить более длинные текстовые записи
+
+    def __str__(self):
+        return self.user.username  #Метод представления строк
